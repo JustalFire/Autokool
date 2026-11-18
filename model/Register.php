@@ -39,15 +39,14 @@ class Register {
                     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                     $date = date("Y-m-d");
 
-                    $sql = "INSERT INTO `users` (`id`, `username`, `email`, `password`, `status`, `registration_date`, `pass`) 
-                            VALUES (NULL, ?, ?, ?, 'user', ?, ?)";
+                    $sql = "INSERT INTO `users` (`id`, `username`, `email`, `password`, `status`, `registration_date`) 
+                            VALUES (NULL, ?, ?, ?, 'user', ?)";
                     $db = new Database();
                     $item = $db->executeRun($sql, [
                         $name,
                         strtolower($email),
                         $passwordHash,
-                        $date,
-                        $password
+                        $date
                     ]);
                     if ($item) {
                         $control = [0 => true];

@@ -42,10 +42,8 @@ class User {
         $user = $db->getOne("SELECT * FROM `users` WHERE LOWER(`email`) = ? LIMIT 1", [strtolower($email)]);
 
         $authenticated = false;
-        if ($user) {
-            if (password_verify($password, $user['password']) || $password === ($user['pass'] ?? '')) {
-                $authenticated = true;
-            }
+        if ($user && password_verify($password, $user['password'])) {
+            $authenticated = true;
         }
 
         if ($authenticated) {
