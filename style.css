@@ -1,0 +1,314 @@
+/* ===============================================================================
+   AUTOKOOL DRIVEPRO - MODERN RESPONSIVE STYLESHEET
+   =============================================================================== */
+
+:root {
+  --primary-color: #1e3a8a;
+  --primary-hover: #172554;
+  --secondary-color: #0f172a;
+  --accent-gold: #f59e0b;
+  --accent-gold-hover: #d97706;
+  --bg-light: #f8fafc;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --card-border-radius: 12px;
+  --transition-speed: 0.25s;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand, .font-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+/* ===============================================================================
+   TOP BAR
+   =============================================================================== */
+.top-bar {
+  background-color: #0b1329 !important;
+  font-size: 0.85rem;
+}
+
+/* ===============================================================================
+   NAVBAR
+   =============================================================================== */
+.bg-navy {
+  background-color: #0f1e36 !important;
+}
+
+.main-nav {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--accent-gold);
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+}
+
+.brand-icon-box {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--accent-gold), #ea580c);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.35);
+  font-size: 1.25rem;
+}
+
+.navbar-nav .nav-link {
+  color: #e2e8f0 !important;
+  font-size: 0.95rem;
+  padding: 0.6rem 1rem !important;
+  border-radius: 6px;
+  transition: all var(--transition-speed) ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: var(--accent-gold) !important;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-menu {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+  min-width: 260px;
+}
+
+.dropdown-item {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.95rem;
+  color: #334155;
+  transition: all var(--transition-speed) ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f5f9;
+  color: var(--primary-color);
+  padding-left: 1.5rem;
+}
+
+.search-form .form-control {
+  border-radius: 20px 0 0 20px !important;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.search-form .btn {
+  border-radius: 0 20px 20px 0 !important;
+}
+
+/* ===============================================================================
+   HERO BANNER
+   =============================================================================== */
+.hero-section {
+  background: linear-gradient(135deg, #0f1e36 0%, #1e3a8a 100%);
+  border-radius: var(--card-border-radius);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 30, 54, 0.25) !important;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.bg-dark-translucent {
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(5px);
+}
+
+/* ===============================================================================
+   FEATURE CARDS
+   =============================================================================== */
+.feature-card {
+  border-radius: var(--card-border-radius);
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  background-color: #ffffff;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.feature-icon {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f1f5f9;
+}
+
+/* ===============================================================================
+   COURSE CARDS (CATALOG)
+   =============================================================================== */
+.course-card {
+  border-radius: var(--card-border-radius);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: transform var(--transition-speed) cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow var(--transition-speed) ease;
+  background-color: #ffffff;
+}
+
+.course-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 15px 35px rgba(15, 30, 54, 0.12) !important;
+  border-color: #cbd5e1;
+}
+
+.course-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.course-card:hover .card-img-top {
+  transform: scale(1.03);
+}
+
+.category-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: rgba(15, 30, 54, 0.85);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.price-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: var(--accent-gold);
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 4px 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* ===============================================================================
+   INTERACTIVE CALCULATOR
+   =============================================================================== */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.category-choice-card {
+  transition: all var(--transition-speed) ease;
+  border: 2px solid #e2e8f0 !important;
+}
+
+.category-choice-card:hover {
+  border-color: var(--primary-color) !important;
+  background-color: #f8fafc;
+}
+
+.category-choice-card input[type="radio"]:checked ~ strong {
+  color: var(--primary-color);
+}
+
+/* ===============================================================================
+   REVIEWS & RATINGS
+   =============================================================================== */
+.avatar-circle {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-gold));
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.review-item {
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #f1f5f9 !important;
+}
+
+/* ===============================================================================
+   FOOTER
+   =============================================================================== */
+.hover-white {
+  transition: color var(--transition-speed) ease;
+}
+
+.hover-white:hover {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+/* ===============================================================================
+   RESPONSIVENESS (MOBILE / TABLET ADAPTATIONS)
+   =============================================================================== */
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-link {
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  .search-form {
+    margin-top: 1rem !important;
+    width: 100%;
+  }
+
+  .search-form .input-group {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding: 2rem 1.5rem !important;
+  }
+
+  .hero-section h1 {
+    font-size: 1.85rem;
+  }
+
+  .course-card .card-img-top {
+    height: 180px;
+  }
+
+  .top-contact {
+    margin-bottom: 0.5rem;
+  }
+
+  .top-bar .container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
