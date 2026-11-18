@@ -5,16 +5,16 @@ ob_start();
     <div class="col-lg-9">
         <div class="card shadow-sm border-0">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h4 class="mb-0 font-weight-bold"><i class="fa fa-pencil"></i> Koolituse muutmine: #<?php echo $detail['id'] ?? ''; ?></h4>
-                <a href="courseAdmin" class="btn btn-sm btn-light font-weight-bold"><i class="fa fa-arrow-left"></i> Tagasi nimekirja</a>
+                <h4 class="mb-0 font-weight-bold"><i class="fa fa-pencil"></i> <?php echo __('admin_edit_course_title'); ?>: #<?php echo $detail['id'] ?? ''; ?></h4>
+                <a href="courseAdmin" class="btn btn-sm btn-light font-weight-bold"><i class="fa fa-arrow-left"></i> <?php echo __('admin_btn_back_list'); ?></a>
             </div>
             <div class="card-body p-4">
                 <?php
                 if (isset($test)) {
                     if ($test == true) {
-                        echo '<div class="alert alert-success"><i class="fa fa-check-circle"></i> Koolituse andmed edukalt uuendatud! <a href="courseAdmin" class="font-weight-bold">Tagasi nimekirja</a></div>';
+                        echo '<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' . __('msg_success', 'Koolituse andmed edukalt uuendatud!') . ' <a href="courseAdmin" class="font-weight-bold">' . __('admin_btn_back_list') . '</a></div>';
                     } else {
-                        echo '<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Viga uuendamisel! Kontrollige välju.</div>';
+                        echo '<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> ' . __('msg_error', 'Viga uuendamisel! Kontrollige välju.') . '</div>';
                     }
                 }
                 ?>
@@ -96,9 +96,9 @@ ob_start();
                     <hr class="my-4">
 
                     <button type="submit" name="save" class="btn btn-primary btn-lg px-4 font-weight-bold">
-                        <i class="fa fa-save"></i> Salvesta muudatused
+                        <i class="fa fa-save"></i> <?php echo __('admin_btn_save'); ?>
                     </button>
-                    <a href="courseAdmin" class="btn btn-outline-secondary btn-lg px-4 ml-2">Loobu</a>
+                    <a href="courseAdmin" class="btn btn-outline-secondary btn-lg px-4 ml-2"><?php echo __('admin_btn_cancel'); ?></a>
                 </form>
             </div>
         </div>

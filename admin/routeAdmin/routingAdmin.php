@@ -3,6 +3,19 @@ $host = explode('?', $_SERVER['REQUEST_URI'])[0];
 $num = substr_count($host, '/');
 $path = explode('/', $host)[$num];
 
+// Security Guard: restrict all admin routes to authenticated admin users only
+$publicPaths = ['', 'index', 'index.php', 'login', 'logout'];
+if (!in_array($path, $publicPaths)) {
+    if (empty($_SESSION['sessionId']) || empty($_SESSION['userId']) || ($_SESSION['status'] ?? '') !== 'admin') {
+        $isRu = (class_exists('Lang') && Lang::current() === 'ru');
+        $_SESSION['errorString'] = $isRu 
+            ? 'Доступ запрещен. Необходима авторизация с правами администратора.' 
+            : 'Juurdepääs keelatud. Nõutav administraatori sisselogimine.';
+        header('Location: ./');
+        exit();
+    }
+}
+
 if ($path == '' || $path == 'index.php') {
     $response = controllerAdmin::formLoginSite();
 }
