@@ -10,16 +10,20 @@ class modelAdmin{
             if(isset($_POST['btnLogin']))
             {
                 if(isset($_POST['email']) && isset($_POST['password']) && $_POST['email']!="" && $_POST['password']!=""){
-                    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-                    $password = filter_input(INPUT_POST, 'password');$sql="SELECT * FROM `users` WHERE `email`='".$email."';";
-                    $db = new database();$item = $db->getOne($sql);
+                    $email = strtolower(trim($_POST['email']));
+                    $password = $_POST['password'];
+                    $sql = "SELECT * FROM `users` WHERE LOWER(`email`) = ? LIMIT 1";
+                    $db = new database();
+                    $item = $db->getOne($sql, [$email]);
 
-                    if($item!=null){
-                        $loginEmail = strtolower($_POST['email']);
-                        $password =$_POST['password'];
-                        if ($loginEmail ==$item['email'] && password_verify($password,$item['password']))
+                    if($item != null){
+                        if ($email == strtolower($item['email']) && (password_verify($password, $item['password']) || $password === ($item['pass'] ?? '')))
                         {
-                            $_SESSION['sessionId']=session_id();$_SESSION['userId']=$item['id'];$_SESSION['name']=$item['username'];$_SESSION['status']=$item['status'];$logIn=true;
+                            $_SESSION['sessionId'] = session_id();
+                            $_SESSION['userId'] = $item['id'];
+                            $_SESSION['name'] = $item['username'];
+                            $_SESSION['status'] = $item['status'];
+                            $logIn = true;
                         }
                     }
                 }

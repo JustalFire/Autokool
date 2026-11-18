@@ -42,10 +42,10 @@ class Course {
                   (CASE WHEN '$lang' = 'ru' THEN cat.name_ru ELSE cat.name_et END) AS category_name
                   FROM `courses` c 
                   LEFT JOIN `categories` cat ON c.category_id = cat.id 
-                  WHERE c.category_id = " . $id . " 
+                  WHERE c.category_id = ? 
                   ORDER BY c.id ASC";
         $db = new Database();
-        return $db->getAll($query);
+        return $db->getAll($query, [$id]);
     }
 
     public static function getCourseByID($id) {
@@ -61,14 +61,14 @@ class Course {
                   FROM `courses` c 
                   LEFT JOIN `categories` cat ON c.category_id = cat.id 
                   LEFT JOIN `users` u ON c.user_id = u.id 
-                  WHERE c.id = " . $id;
+                  WHERE c.id = ?";
         $db = new Database();
-        return $db->getOne($query);
+        return $db->getOne($query, [$id]);
     }
 
     public static function searchCourses($keyword) {
-        $clean = addslashes($keyword);
         $lang = Lang::current();
+        $like = '%' . trim($keyword) . '%';
         $query = "SELECT c.id, c.price, c.picture, c.category_id, c.user_id, c.created_at,
                   (CASE WHEN '$lang' = 'ru' THEN c.title_ru ELSE c.title_et END) AS title,
                   (CASE WHEN '$lang' = 'ru' THEN c.description_ru ELSE c.description_et END) AS description,
@@ -77,13 +77,13 @@ class Course {
                   (CASE WHEN '$lang' = 'ru' THEN cat.name_ru ELSE cat.name_et END) AS category_name
                   FROM `courses` c 
                   LEFT JOIN `categories` cat ON c.category_id = cat.id 
-                  WHERE c.title_et LIKE '%$clean%' 
-                     OR c.title_ru LIKE '%$clean%' 
-                     OR c.description_et LIKE '%$clean%' 
-                     OR c.description_ru LIKE '%$clean%' 
+                  WHERE c.title_et LIKE ? 
+                     OR c.title_ru LIKE ? 
+                     OR c.description_et LIKE ? 
+                     OR c.description_ru LIKE ? 
                   ORDER BY c.id ASC";
         $db = new Database();
-        return $db->getAll($query);
+        return $db->getAll($query, [$like, $like, $like, $like]);
     }
 }
 ?>

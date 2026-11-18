@@ -45,23 +45,27 @@ class Database {
         }
     }
 
-    function getOne($query) {
+    function getOne($query, $params = []) {
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute($params);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $response = $stmt->fetch();
         return $response;
     }
 
-    function getAll($query) {
+    function getAll($query, $params = []) {
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute($params);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $response = $stmt->fetchAll();
         return $response;
     }
 
-    function executeRun($query) {
+    function executeRun($query, $params = []) {
+        if (!empty($params)) {
+            $stmt = $this->conn->prepare($query);
+            return $stmt->execute($params);
+        }
         $response = $this->conn->exec($query);
         return $response;
     }
