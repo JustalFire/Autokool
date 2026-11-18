@@ -1,14 +1,14 @@
 <?php
 ob_start();
 $catObj = Category::getCategoryByID($_GET['id'] ?? 0);
-$catTitle = $catObj ? $catObj['name'] : 'Koolitused kategoorias';
+$catTitle = $catObj ? $catObj['name'] : __('nav_courses');
 $catDesc = $catObj ? $catObj['description'] : '';
 ?>
 <div class="category-courses-page py-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light">
-            <li class="breadcrumb-item"><a href="./">Avaleht</a></li>
-            <li class="breadcrumb-item"><a href="courses">Koolitused</a></li>
+            <li class="breadcrumb-item"><a href="./"><?php echo __('nav_home'); ?></a></li>
+            <li class="breadcrumb-item"><a href="courses"><?php echo __('nav_courses'); ?></a></li>
             <li class="breadcrumb-item active"><?php echo htmlspecialchars($catTitle); ?></li>
         </ol>
     </nav>

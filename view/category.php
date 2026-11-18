@@ -1,5 +1,5 @@
 <?php
-echo '<a class="dropdown-item font-weight-bold" href="courses"><i class="fa fa-th-large text-primary mr-2"></i>Kõik kategooriad</a>';
+echo '<a class="dropdown-item font-weight-bold" href="courses"><i class="fa fa-th-large text-primary mr-2"></i>' . __('category_all') . '</a>';
 echo '<div class="dropdown-divider"></div>';
 
 if (!empty($arr)) {

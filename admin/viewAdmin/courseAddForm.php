@@ -19,9 +19,15 @@ ob_start();
                 }
                 ?>
                 <form action="courseAddResult" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label class="font-weight-bold">Kursuse nimetus *</label>
-                        <input type="text" name="title" class="form-control" required placeholder="nt. B-kategooria põhikursus (Manuaal)">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold">Kursuse nimetus (ET) *</label>
+                            <input type="text" name="title_et" class="form-control" required placeholder="nt. B-kategooria põhikursus (Manuaal)">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold">Kursuse nimetus (RU)</label>
+                            <input type="text" name="title_ru" class="form-control" placeholder="nt. Основной курс категории B (Механика)">
+                        </div>
                     </div>
 
                     <div class="form-row">
@@ -30,7 +36,7 @@ ob_start();
                             <select name="idCategory" class="form-control" required>
                                 <?php if (!empty($arr)): ?>
                                     <?php foreach ($arr as $cat): ?>
-                                        <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
+                                        <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name_et'] ?? $cat['name']); ?></option>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </select>
@@ -40,8 +46,8 @@ ob_start();
                             <input type="number" step="0.01" name="price" class="form-control" required placeholder="680.00">
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="font-weight-bold">Käigukast</label>
-                            <select name="transmission" class="form-control">
+                            <label class="font-weight-bold">Käigukast (ET)</label>
+                            <select name="transmission_et" class="form-control">
                                 <option value="Manuaal">Manuaal</option>
                                 <option value="Automaat">Automaat</option>
                                 <option value="Mootorratas">Mootorratas</option>
@@ -51,14 +57,25 @@ ob_start();
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="font-weight-bold">Kestus ja maht</label>
-                        <input type="text" name="duration" class="form-control" placeholder="nt. 6-8 nädalat (28h teooria + 30 sõidutundi)">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold">Kestus ja maht (ET)</label>
+                            <input type="text" name="duration_et" class="form-control" placeholder="nt. 6-8 nädalat (28h teooria + 30 sõidutundi)">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold">Kestus ja maht (RU)</label>
+                            <input type="text" name="duration_ru" class="form-control" placeholder="nt. 6-8 недель (28ч теории + 30 уроков)">
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="font-weight-bold">Kirjeldus *</label>
-                        <textarea name="description" class="form-control" rows="5" required placeholder="Koolituse programmi kirjeldus ja sisu..."></textarea>
+                        <label class="font-weight-bold">Kirjeldus eesti keeles (ET) *</label>
+                        <textarea name="description_et" class="form-control" rows="4" required placeholder="Koolituse programmi kirjeldus..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="font-weight-bold">Kirjeldus vene keeles (RU)</label>
+                        <textarea name="description_ru" class="form-control" rows="4" placeholder="Описание программы курса на русском языке..."></textarea>
                     </div>
 
                     <div class="form-group">

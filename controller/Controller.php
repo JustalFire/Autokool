@@ -39,7 +39,7 @@ class Controller {
 
     public static function InsertReview($course_id, $author, $rating, $comment) {
         Review::insertReview($course_id, $author, $rating, $comment);
-        $_SESSION['flash_success'] = 'Täname tagasiside eest!';
+        $_SESSION['flash_success'] = __('review_added', 'Täname tagasiside eest!');
         header('Location: course?id=' . intval($course_id) . '#reviews-section');
         exit();
     }
@@ -54,10 +54,21 @@ class Controller {
 
             $res = Enrollment::createEnrollment($course_id, $name, $email, $phone, $message);
             if ($res) {
-                $_SESSION['flash_success'] = 'Registreerimine edukalt vastu võetud! Meie konsultant võtab Teiega peagi ühendust.';
+                $isRu = (Lang::current() === 'ru');
+                $_SESSION['flash_success'] = $isRu ? 'Заявка успешно принята! Наш консультант свяжется с вами в ближайшее время.' : 'Registreerimine edukalt vastu võetud! Meie konsultant võtab Teiega peagi ühendust.';
             } else {
-                $_SESSION['flash_error'] = 'Palun täitke kõik kohustuslikud väljad korrektselt.';
+                $isRu = (Lang::current() === 'ru');
+                $_SESSION['flash_error'] = $isRu ? 'Пожалуйста, заполните все обязательные поля корректно.' : 'Palun täitke kõik kohustuslikud väljad korrektselt.';
             }
+        }
+        $referer = $_SERVER['HTTP_REFERER'] ?? './';
+        header('Location: ' . $referer);
+        exit();
+    }
+
+    public static function ChangeLang($lang) {
+        if (in_array($lang, ['et', 'ru'])) {
+            $_SESSION['lang'] = $lang;
         }
         $referer = $_SERVER['HTTP_REFERER'] ?? './';
         header('Location: ' . $referer);

@@ -33,6 +33,9 @@ elseif ($path == 'insertreview') {
 elseif ($path == 'enroll') {
     $response = Controller::EnrollCourse();
 }
+elseif ($path == 'lang' && isset($_GET['lang'])) {
+    $response = Controller::ChangeLang($_GET['lang']);
+}
 elseif ($path == 'registerForm') {
     $response = Controller::registerForm();
 }

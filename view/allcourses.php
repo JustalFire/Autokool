@@ -4,12 +4,12 @@ ob_start();
 <div class="courses-catalog-page py-3">
     <div class="row align-items-center mb-4">
         <div class="col-md-7">
-            <h1 class="font-weight-bold text-dark">Kõik pakutavad koolitused ja teenused</h1>
-            <p class="text-muted">Tutvu meie juhiloa kategooriate ja täiendkoolitustega</p>
+            <h1 class="font-weight-bold text-dark"><?php echo __('all_courses_title'); ?></h1>
+            <p class="text-muted"><?php echo __('all_courses_sub'); ?></p>
         </div>
         <div class="col-md-5">
             <div class="input-group">
-                <input type="text" id="courseFilterInput" class="form-control" placeholder="Otsi kursust..." onkeyup="filterCoursesLive()">
+                <input type="text" id="courseFilterInput" class="form-control" placeholder="<?php echo __('search_placeholder'); ?>" onkeyup="filterCoursesLive()">
                 <div class="input-group-append">
                     <span class="input-group-text bg-primary text-white"><i class="fa fa-search"></i></span>
                 </div>
@@ -19,7 +19,7 @@ ob_start();
 
     <!-- Dynamic Category Filter Pills -->
     <div class="category-filter-pills mb-4 d-flex flex-wrap gap-2">
-        <button class="btn btn-sm btn-primary active-pill mr-2 mb-2" onclick="filterByCategory('all', this)">Kõik kategooriad</button>
+        <button class="btn btn-sm btn-primary active-pill mr-2 mb-2" onclick="filterByCategory('all', this)"><?php echo __('category_all'); ?></button>
         <?php
         $cats = Category::getAllCategory();
         if (!empty($cats)) {

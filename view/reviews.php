@@ -3,34 +3,35 @@ class ViewReviews {
 
     public static function ReviewsForm($course_id) {
         $course_id = intval($course_id);
+        $isRu = (Lang::current() === 'ru');
         echo '
         <div class="card shadow-sm border-0 mb-4 bg-light">
             <div class="card-body p-4">
-                <h4 class="font-weight-bold mb-3"><i class="fa fa-pencil text-primary"></i> Jäta oma tagasiside</h4>
+                <h4 class="font-weight-bold mb-3"><i class="fa fa-pencil text-primary"></i> ' . __('leave_review_title') . '</h4>
                 <form action="insertreview" method="POST">
                     <input type="hidden" name="course_id" value="' . $course_id . '">
                     <div class="form-row">
                         <div class="form-group col-md-8">
-                            <label class="font-weight-bold">Teie nimi *</label>
-                            <input type="text" name="author" class="form-control" required placeholder="nt. Anna Tamm">
+                            <label class="font-weight-bold">' . __('your_name') . ' *</label>
+                            <input type="text" name="author" class="form-control" required placeholder="' . ($isRu ? 'Имя Фамилия' : 'nt. Anna Tamm') . '">
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="font-weight-bold">Hinnang *</label>
+                            <label class="font-weight-bold">' . __('your_rating') . ' *</label>
                             <select name="rating" class="form-control">
-                                <option value="5">★★★★★ (5/5) Suurepärane</option>
-                                <option value="4">★★★★☆ (4/5) Väga hea</option>
-                                <option value="3">★★★☆☆ (3/5) Rahuldav</option>
-                                <option value="2">★★☆☆☆ (2/5) Kasin</option>
-                                <option value="1">★☆☆☆☆ (1/5) Mitterahuldav</option>
+                                <option value="5">★★★★★ (5/5)</option>
+                                <option value="4">★★★★☆ (4/5)</option>
+                                <option value="3">★★★☆☆ (3/5)</option>
+                                <option value="2">★★☆☆☆ (2/5)</option>
+                                <option value="1">★☆☆☆☆ (1/5)</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold">Teie kommentaar / kogemus *</label>
-                        <textarea name="comment" class="form-control" rows="3" required placeholder="Kirjuta oma muljetest sõiduõpetaja ja tundide kohta..."></textarea>
+                        <label class="font-weight-bold">' . __('your_comment') . ' *</label>
+                        <textarea name="comment" class="form-control" rows="3" required placeholder="' . ($isRu ? 'Напишите отзыв об обучении и инструкторе...' : 'Kirjuta oma muljetest sõiduõpetaja ja tundide kohta...') . '"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary px-4 font-weight-bold">
-                        <i class="fa fa-paper-plane"></i> Saada arvustus
+                        <i class="fa fa-paper-plane"></i> ' . __('send_review') . '
                     </button>
                 </form>
             </div>
@@ -39,10 +40,10 @@ class ViewReviews {
 
     public static function ReviewsList($arr) {
         echo '<div id="reviews-section" class="reviews-wrapper mt-5">';
-        echo '<h3 class="font-weight-bold mb-4"><i class="fa fa-comments text-primary"></i> Õpilaste tagasiside ja arvustused</h3>';
+        echo '<h3 class="font-weight-bold mb-4"><i class="fa fa-comments text-primary"></i> ' . __('reviews_title') . '</h3>';
 
         if (empty($arr)) {
-            echo '<div class="alert alert-secondary p-4 text-center">Sellel kursusel pole veel arvustusi. Ole esimene tagasiside jätja!</div>';
+            echo '<div class="alert alert-secondary p-4 text-center">' . __('no_reviews') . '</div>';
             return;
         }
 

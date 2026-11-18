@@ -19,7 +19,7 @@ ob_start();
                 ?>
                     <h5 class="text-dark mb-3">Kas olete kindel, et soovite kustutada järgmise koolituse?</h5>
                     <div class="alert alert-light border p-3 text-left mb-4">
-                        <strong class="d-block text-dark h5 mb-1"><?php echo htmlspecialchars($detail['title'] ?? ''); ?></strong>
+                        <strong class="d-block text-dark h5 mb-1"><?php echo htmlspecialchars(!empty($detail['title_et']) ? $detail['title_et'] : ($detail['title'] ?? '')); ?></strong>
                         <div><strong>Kategooria:</strong> <?php echo htmlspecialchars($detail['category_name'] ?? ''); ?></div>
                         <div><strong>Hind:</strong> <?php echo number_format($detail['price'] ?? 0, 2); ?> €</div>
                     </div>

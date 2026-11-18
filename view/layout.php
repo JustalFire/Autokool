@@ -1,9 +1,23 @@
+<?php
+$currentUri = $_SERVER['REQUEST_URI'];
+$urlParts = parse_url($currentUri);
+$pathOnly = $urlParts['path'] ?? './';
+$queryParams = [];
+if (!empty($urlParts['query'])) {
+    parse_str($urlParts['query'], $queryParams);
+}
+$queryParams['lang'] = 'et';
+$etUrl = $pathOnly . '?' . http_build_query($queryParams);
+$queryParams['lang'] = 'ru';
+$ruUrl = $pathOnly . '?' . http_build_query($queryParams);
+$currentLang = Lang::current();
+?>
 <!DOCTYPE html>
-<html lang="et">
+<html lang="<?php echo $currentLang; ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>DrivePro Autokool - Professionaalne Sõiduõpe</title>
+    <title><?php echo __('site_title'); ?></title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -24,9 +38,16 @@
             <span class="d-none d-md-inline"><i class="fa fa-map-marker text-warning"></i> Mustamäe tee 4, Tallinn</span>
         </div>
         <div class="top-right d-flex align-items-center">
+            <!-- LANGUAGE SWITCHER -->
+            <div class="lang-switcher mr-3">
+                <i class="fa fa-globe text-warning mr-1"></i>
+                <a href="<?php echo htmlspecialchars($etUrl); ?>" class="lang-link <?php echo $currentLang === 'et' ? 'active-lang' : ''; ?>">EST</a>
+                <span class="text-secondary">|</span>
+                <a href="<?php echo htmlspecialchars($ruUrl); ?>" class="lang-link <?php echo $currentLang === 'ru' ? 'active-lang' : ''; ?>">RUS</a>
+            </div>
             <!-- ADMIN LINK -->
             <a href="admin/" class="btn btn-outline-warning btn-sm py-0 px-2 font-weight-bold" style="font-size: 0.8rem;">
-                <i class="fa fa-lock"></i> Administratsioon
+                <i class="fa fa-lock"></i> <?php echo __('nav_admin'); ?>
             </a>
         </div>
     </div>
@@ -37,7 +58,7 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center font-weight-bold" href="./">
             <span class="brand-icon-box mr-2"><i class="fa fa-car"></i></span>
-            <span class="brand-text">Drive<span class="text-warning">Pro</span> <small class="text-white-50 d-block font-weight-normal" style="font-size: 0.65rem; letter-spacing: 1px;">AUTOKOOL</small></span>
+            <span class="brand-text">Drive<span class="text-warning">Pro</span> <small class="text-white-50 d-block font-weight-normal" style="font-size: 0.65rem; letter-spacing: 1px;"><?php echo __('tagline'); ?></small></span>
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbarNav" aria-controls="mainNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,12 +68,12 @@
         <div class="collapse navbar-collapse" id="mainNavbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold text-uppercase" href="./">Avaleht</a>
+                    <a class="nav-link font-weight-bold text-uppercase" href="./"><?php echo __('nav_home'); ?></a>
                 </li>
                 <!-- Category Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle font-weight-bold text-uppercase" href="#" id="coursesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Koolitused
+                        <?php echo __('nav_courses'); ?>
                     </a>
                     <div class="dropdown-menu shadow-lg border-0 py-2" aria-labelledby="coursesDropdown">
                         <?php
@@ -62,18 +83,18 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link font-weight-bold text-uppercase" href="calculator">
-                        <i class="fa fa-calculator text-warning"></i> Hinnakalkulaator
+                        <i class="fa fa-calculator text-warning"></i> <?php echo __('nav_calculator'); ?>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link font-weight-bold text-uppercase" href="registerForm">Registreerimine</a>
+                    <a class="nav-link font-weight-bold text-uppercase" href="registerForm"><?php echo __('nav_register'); ?></a>
                 </li>
             </ul>
 
             <!-- Search Form -->
             <form class="form-inline my-2 my-lg-0 search-form" action="search" method="GET">
                 <div class="input-group">
-                    <input class="form-control form-control-sm border-0" type="search" name="otsi" placeholder="Otsi kursust..." aria-label="Otsi">
+                    <input class="form-control form-control-sm border-0" type="search" name="otsi" placeholder="<?php echo __('search_placeholder'); ?>" aria-label="Otsi">
                     <div class="input-group-append">
                         <button class="btn btn-warning btn-sm" type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -121,7 +142,7 @@
         <div class="modal-content shadow-lg border-0 rounded-lg">
             <div class="modal-header bg-navy text-white">
                 <h5 class="modal-title font-weight-bold" id="quickEnrollModalLabel">
-                    <i class="fa fa-pencil-square-o text-warning mr-1"></i> Kiire registreerimine kursusele
+                    <i class="fa fa-pencil-square-o text-warning mr-1"></i> <?php echo __('reg_modal_title'); ?>
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Sulge">
                     <span aria-hidden="true">&times;</span>
@@ -130,7 +151,7 @@
             <form action="enroll" method="POST">
                 <div class="modal-body p-4">
                     <div class="form-group">
-                        <label class="font-weight-bold text-secondary">Vali kursus *</label>
+                        <label class="font-weight-bold text-secondary"><?php echo __('reg_select_course'); ?> *</label>
                         <select name="course_id" id="enrollCourseSelect" class="form-control" required>
                             <?php
                             $allC = Course::getAllCourses();
@@ -143,26 +164,26 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold text-secondary">Täisnimi *</label>
-                        <input type="text" name="name" class="form-control" required placeholder="nt. Peeter Tamm">
+                        <label class="font-weight-bold text-secondary"><?php echo __('reg_full_name'); ?> *</label>
+                        <input type="text" name="name" class="form-control" required placeholder="<?php echo $currentLang === 'ru' ? 'Иван Иванов' : 'Peeter Tamm'; ?>">
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold text-secondary">E-posti aadress *</label>
+                        <label class="font-weight-bold text-secondary"><?php echo __('reg_email'); ?> *</label>
                         <input type="email" name="email" class="form-control" required placeholder="nimi@e-post.ee">
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold text-secondary">Telefoninumber *</label>
+                        <label class="font-weight-bold text-secondary"><?php echo __('reg_phone'); ?> *</label>
                         <input type="tel" name="phone" class="form-control" required placeholder="+372 555 12345">
                     </div>
                     <div class="form-group mb-0">
-                        <label class="font-weight-bold text-secondary">Küsimused või eelistatud õppeaeg</label>
-                        <textarea name="message" id="enrollMessage" class="form-control" rows="2" placeholder="Küsimused või eelistatud aeg..."></textarea>
+                        <label class="font-weight-bold text-secondary"><?php echo __('reg_message'); ?></label>
+                        <textarea name="message" id="enrollMessage" class="form-control" rows="2" placeholder="<?php echo $currentLang === 'ru' ? 'Вопросы или пожелания...' : 'Küsimused või eelistatud aeg...'; ?>"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-secondary font-weight-bold" data-dismiss="modal">Sulge</button>
+                    <button type="button" class="btn btn-secondary font-weight-bold" data-dismiss="modal"><?php echo __('close'); ?></button>
                     <button type="submit" class="btn btn-warning font-weight-bold shadow-sm">
-                        <i class="fa fa-check"></i> Kinnita registreerimine
+                        <i class="fa fa-check"></i> <?php echo __('reg_submit'); ?>
                     </button>
                 </div>
             </form>
@@ -176,17 +197,17 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4">
                 <h5 class="font-weight-bold text-warning mb-3">
-                    <i class="fa fa-car mr-2"></i>DrivePro Autokool
+                    <i class="fa fa-car mr-2"></i><?php echo __('brand_name'); ?>
                 </h5>
                 <p class="text-white-50 small leading-relaxed">
-                    Kaasaegsed õppesõidukid, professionaalsed instruktorid ning paindlik õppegraafik. Meie õpilaste riiklike sõidueksamite sooritamise edukus on üle 92%!
+                    <?php echo __('footer_about'); ?>
                 </p>
                 <div class="footer-badges">
-                    <span class="badge badge-secondary py-1 px-2 mr-1">Transpordiameti koolitusluba nr 142/2020</span>
+                    <span class="badge badge-secondary py-1 px-2 mr-1"><?php echo __('footer_license'); ?></span>
                 </div>
             </div>
             <div class="col-lg-2 col-md-6 mb-4">
-                <h6 class="font-weight-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;">Koolitused</h6>
+                <h6 class="font-weight-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;"><?php echo __('nav_courses'); ?></h6>
                 <ul class="list-unstyled footer-links small">
                     <li class="mb-2"><a href="category?id=1" class="text-white-50 hover-white">B-kategooria</a></li>
                     <li class="mb-2"><a href="category?id=2" class="text-white-50 hover-white">A-kategooria</a></li>
@@ -195,15 +216,15 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
-                <h6 class="font-weight-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;">Kiirlingid</h6>
+                <h6 class="font-weight-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;"><?php echo $currentLang === 'ru' ? 'Быстрые ссылки' : 'Kiirlingid'; ?></h6>
                 <ul class="list-unstyled footer-links small">
-                    <li class="mb-2"><a href="calculator" class="text-white-50 hover-white">Hinnakalkulaator</a></li>
-                    <li class="mb-2"><a href="registerForm" class="text-white-50 hover-white">Registreerimine</a></li>
-                    <li class="mb-2"><a href="admin/" class="text-white-50 hover-white">Administratsioon</a></li>
+                    <li class="mb-2"><a href="calculator" class="text-white-50 hover-white"><?php echo __('nav_calculator'); ?></a></li>
+                    <li class="mb-2"><a href="registerForm" class="text-white-50 hover-white"><?php echo __('nav_register'); ?></a></li>
+                    <li class="mb-2"><a href="admin/" class="text-white-50 hover-white"><?php echo __('nav_admin'); ?></a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
-                <h6 class="font-weight-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;">Kontakt</h6>
+                <h6 class="font-weight-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;"><?php echo $currentLang === 'ru' ? 'Контакты' : 'Kontakt'; ?></h6>
                 <ul class="list-unstyled text-white-50 small">
                     <li class="mb-2"><i class="fa fa-map-marker text-warning mr-2"></i> Mustamäe tee 4, Tallinn</li>
                     <li class="mb-2"><i class="fa fa-phone text-warning mr-2"></i> +372 555 1234</li>
@@ -215,7 +236,7 @@
         <hr class="border-secondary my-3">
         <div class="row align-items-center">
             <div class="col-md-6 text-center text-md-left text-white-50 small">
-                DrivePro Autokool &copy; <?php echo date('Y'); ?>. Kõik õigused kaitstud.
+                <?php echo __('brand_name'); ?> &copy; <?php echo date('Y'); ?>. <?php echo __('footer_rights'); ?>
             </div>
             <div class="col-md-6 text-center text-md-right text-white-50 small">
                 Tarkvaraarenduse projekt (PHP MVC / ISO-29148 &amp; ISO-26514)

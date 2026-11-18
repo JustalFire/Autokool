@@ -24,7 +24,8 @@ class Enrollment {
     }
 
     public static function getAllEnrollments() {
-        $query = "SELECT r.*, c.title 
+        $lang = class_exists('Lang') ? Lang::current() : 'et';
+        $query = "SELECT r.*, (CASE WHEN '$lang' = 'ru' THEN c.title_ru ELSE c.title_et END) AS title 
                   FROM `registrations` r 
                   LEFT JOIN `courses` c ON r.course_id = c.id 
                   ORDER BY r.id DESC";

@@ -30,11 +30,30 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .font-heading {
 }
 
 /* ===============================================================================
-   TOP BAR
+   TOP BAR & LANGUAGE SWITCHER
    =============================================================================== */
 .top-bar {
   background-color: #0b1329 !important;
   font-size: 0.85rem;
+}
+
+.lang-switcher .lang-link {
+  color: #94a3b8;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 2px 7px;
+  border-radius: 4px;
+  transition: all var(--transition-speed) ease;
+}
+
+.lang-switcher .lang-link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.lang-switcher .lang-link.active-lang {
+  color: #0b1329;
+  background-color: var(--accent-gold);
 }
 
 /* ===============================================================================

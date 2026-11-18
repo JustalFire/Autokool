@@ -2,6 +2,8 @@
 session_start();
 
 require_once 'inc/Database.php';
+require_once 'inc/Lang.php';
+Lang::init();
 
 require_once 'model/Category.php';
 require_once 'model/Course.php';

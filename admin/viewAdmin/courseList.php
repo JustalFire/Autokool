@@ -35,12 +35,15 @@ ob_start();
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <strong class="d-block text-dark"><?php echo htmlspecialchars($row['title']); ?></strong>
+                                    <strong class="d-block text-dark"><?php echo htmlspecialchars(!empty($row['title_et']) ? $row['title_et'] : ($row['title'] ?? '')); ?></strong>
+                                    <?php if (!empty($row['title_ru'])): ?>
+                                        <small class="text-muted"><i class="fa fa-globe text-warning"></i> <?php echo htmlspecialchars($row['title_ru']); ?></small>
+                                    <?php endif; ?>
                                 </td>
                                 <td><span class="badge badge-info"><?php echo htmlspecialchars($row['category_name'] ?? 'Määramata'); ?></span></td>
                                 <td><strong class="text-primary"><?php echo number_format($row['price'], 2); ?> €</strong></td>
-                                <td><small><?php echo htmlspecialchars($row['duration']); ?></small></td>
-                                <td><span class="badge badge-light border"><?php echo htmlspecialchars($row['transmission'] ?? 'Manuaal'); ?></span></td>
+                                <td><small><?php echo htmlspecialchars(!empty($row['duration_et']) ? $row['duration_et'] : ($row['duration'] ?? '')); ?></small></td>
+                                <td><span class="badge badge-light border"><?php echo htmlspecialchars(!empty($row['transmission_et']) ? $row['transmission_et'] : ($row['transmission'] ?? 'Manuaal')); ?></span></td>
                                 <td class="text-center">
                                     <a href="courseEdit?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary mr-1" title="Muuda"><i class="fa fa-pencil"></i></a>
                                     <a href="courseDel?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" title="Kustuta"><i class="fa fa-trash"></i></a>
